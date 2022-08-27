@@ -65,12 +65,6 @@ const cart = {
   getTotalPrice() {
     return this.totalPrice;
   },
-  increaseCount(quantity) {
-    this.count += quantity;
-  },
-  calculateItemPrice(price) {
-    this.totalPrice += price;
-  },
   add(item, price, quantity = 1) {
     const newObj = {
       item: item,
@@ -79,10 +73,13 @@ const cart = {
     }
     this.items.push(newObj);
     this.count += quantity;
-    this.calculateItemPrice(price*quantity);
-    this.increaseCount(quantity);
+    this.totalPrice += price * quantity;
 
   },
+  increaseCount(quantity) {
+    this.count += quantity;
+  },
+  calculateItemPrice() {},
   clear() {
     this.items = [];
     this.count = 0;
