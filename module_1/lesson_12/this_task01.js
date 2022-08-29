@@ -16,20 +16,22 @@
 const rectangle = {
   width: 5,
   height: 5,
-  get squareWidth() {
-    return `${this.width} см`;
+  perimeter: 0,
+  square: 0,
+  get recSquare() {
+    return `${this.height * this.width} см`;
   },
-  set squareWidth(val) {
+  set recWidth(val) {
     if (typeof val === 'number') {
-      this.width = val;
+      this.square = val;
     } else {
       this.width;
     }
   },
-  get squareHeight() {
-    return `${this.height} см`;
+  get recPerimeter() {
+    return `${(this.height + this.width) * 2} см`;
   },
-  set squareHeight(val) {
+  set recHeight(val) {
     if (typeof val === 'number') {
       this.height = val;
     } else {
@@ -38,5 +40,7 @@ const rectangle = {
   },
 };
 
-rectangle.squareHeight = 'asd';
-console.log(rectangle.squareHeight);
+rectangle.recHeight = 10;
+console.log(rectangle.recPerimeter);
+console.log(rectangle.recSquare);
+
