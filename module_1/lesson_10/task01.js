@@ -1,101 +1,68 @@
-/* 
-Создайте файл cart.js, подключите к html-файлу
+'use strict';
 
-Создайте объект cart — корзина
+/*
+Продолжим работу с cart.js
+Обнаружена уязвимость в нашем функционале
+Если после добавления последнего товара присвоить к totalPrice любое значение,
+например
 
-Объект будет содержать следующие свойства:
+cart.totalPrice = 10;
 
-items = пустой массив - это товары
-totalPrice = 0 - общая стоимость корзины
-count = 0 - количество товаров
-и методы
+то при выводе print() общая стоимость корзины будет равна 10
+Чтобы это предотвратить, необходимо свойство totalPrice сделать,
+геттером который будет возвращать результат вызова метода calculateItemPrice
 
-getTotalPrice - получить общую стоимость товаров
-add - добавить товар
-increaseCount - увеличить количество товаров
-calculateItemPrice - посчитать общую стоимость товаров
-clear - очистить корзину
-print - распечатать корзину
+метод getTotalPrice больше не нужен
 
+calculateItemPrice переделать таким образом, чтобы сумму он возвращал,
+ а не записывал в свойство totalPrice
 
-Далее описание каждого метода
-
-getTotalPrice()
-
-метод возвращает значение свойства totalPrice
-
-calculateItemPrice()
-
-пересчитывает стоимость всей корзины и записывает значение в totalPrice 
-
-increaseCount()
-
-Принимает один параметр(число)
-
-Увеличивает свойство count на это число
-
-add()
-
-Принимает три параметра:
-
-название товара
-цену товара
-количество товара (опциональный параметр, по умолчанию 1 товар)
-этот метод формирует объект из полученных параметров и добавляет его в свойство items
-
-так же вызывает все необходимые методы чтобы свойства count и totalPrice были актуальные
-
-clear()
-
-Очищает полностью нашу корзину, возвращает все значения в изначальные
-
-print()
-
-Выводит в консоль JSON строку из массива items и на следующей строке выводит общую стоимость корзины
-
-Для проверки работы функционала добавить 3 или более товаров в корзину
-
-После вызвать метод print для вывода информации в консоль
+Вызов метода calculateItemPrice оставить только у геттера totalPrice
 */
 
 const cart = {
   items: [],
-  totalPrice: 0,
-  count: 0,
-  getTotalPrice() {
-    return this.totalPrice;
+  get totalPrice() {
+    return this.calculateItemPrice(this.items);
   },
+  count: 0,
   add(item, price, quantity = 1) {
     const newObj = {
-      item: item,
-      price: price,
-      quantity: quantity,
-    }
+      item,
+      price,
+      quantity,
+    };
     this.items.push(newObj);
-    this.count += quantity;
-    this.totalPrice += price * quantity;
-
+    this.increaseCount(quantity);
   },
   increaseCount(quantity) {
     this.count += quantity;
   },
-  calculateItemPrice() {},
+  calculateItemPrice(items) {
+    let totalPrice = 0;
+    items.forEach(item => {
+      totalPrice += item.price * item.quantity;
+    });
+    return totalPrice;
+  },
   clear() {
     this.items = [];
     this.count = 0;
     this.totalPrice = 0;
   },
   print() {
-    return `${JSON.stringify(this.items)} \n\n Общая стоимость: ${this.totalPrice} руб.`;
+    return `${JSON.stringify(this.items)} \n
+    \n Общая стоимость: ${this.totalPrice} руб.`;
   },
 };
 
-console.log()
 
-cart.add('Товар', 100)
-cart.add('Чашка большая', 200, 300)
-cart.add('Пляжное полтенце', 1200, 3)
-cart.add('Шлепанцы', 2200, 2)
+cart.add('Товар', 100);
+cart.add('Чашка большая', 200, 300);
+cart.add('Пляжное полтенце', 1200, 3);
+cart.add('Шлепанцы', 2200, 2);
 
-console.log(cart.print())
+console.log(cart.print());
+
+console.log(cart.totalPrice);
 
