@@ -14,7 +14,6 @@
 
     return function start() {
       // подсчет шаров после каждого хода
-      // eslint-disable-next-line require-jsdoc
       function ballCounting(playerOne, playerTwo, count, text) {
         if (count > result[playerTwo]) {
           result[playerOne] += result[playerTwo];
@@ -26,7 +25,6 @@
         return alert(`${text} забирает шарики`);
       }
       // выход из игры или продолжение
-      // eslint-disable-next-line require-jsdoc
       function exit(question) {
         let exit = confirm(question);
         if (question === 'Хотите сыграть еще?') {
