@@ -1,5 +1,5 @@
 'use strict';
 
-const rpg = window.PRG();
+const rpg = window.RPG();
 
 rpg();

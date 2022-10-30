@@ -2,7 +2,6 @@
 
 (() => {
   const OPTION_RUS = ['ножницы', 'камень', 'бумага'];
-  // const OPTION_ENG = ['rock', 'paper', 'scissors'];
 
   const getRandom = (min, max) => Math.round(Math.random() * (max - min) + min);
 
